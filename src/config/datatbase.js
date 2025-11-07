@@ -39,9 +39,9 @@ export default class Database{
 
     async initDB(){
         const BASEDIR = path.dirname(new URL(import.meta.url).pathname);
-        console.log("creation de la table");
+        //console.log("creation de la table");
         const ddl_sql = await fs.readFile(path.join(BASEDIR,'ddl.sql'), 'utf-8');
-        console.log(ddl_sql);
+        //console.log(ddl_sql);
         await this.connection.exec(ddl_sql);
         
 

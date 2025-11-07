@@ -1,13 +1,12 @@
 import Database from "../config/datatbase.js";
 import Repostory from "./repostory.js";
-
 export default class StudentRepostory extends Repostory{
 
     constructor(){
         super();
     }
     
-    static async save(student) {
+    async save(student) {
         if (student.id) {
             const db = await Database.getDataBaseInstance();
             return await db.connection.run(
@@ -34,7 +33,7 @@ export default class StudentRepostory extends Repostory{
         }
     }
 
-    static async findById(id) {
+    async findById(id) {
         const db = await Database.getDataBaseInstance();
         const student = await db.connection.get(
             "SELECT * FROM students WHERE id = :id",
@@ -46,13 +45,13 @@ export default class StudentRepostory extends Repostory{
         return student;
     }
 
-    static async findAll() {
+    async findAll() {
         const db = await Database.getDataBaseInstance();
         const students = await db.connection.all("SELECT * FROM students");
         return students;
     }
 
-    static async delete(id) {
+    async delete(id) {
         const db = await Database.getDataBaseInstance();
         const result = await db.connection.run(
             "DELETE FROM students WHERE id = :id",

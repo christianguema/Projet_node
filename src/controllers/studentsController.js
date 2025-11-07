@@ -103,7 +103,6 @@ export default class studentController {
     const url = new URL(req.url, `http://${req.headers.host}`);
     const id = url.searchParams.get("id");
     const student_del = this.studentService.delete(id);
-    res.writeHead(200);
     res.end("Student successfuly deleted...!");
   }
 

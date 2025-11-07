@@ -26,36 +26,22 @@ export default class StudentService {
   //   this.uuidGen = uuid(1000);
   // }
 
-  studRepos ;
-  constructor(){
+  studRepos;
+  constructor() {
     this.studRepos = new StudentRepostory();
   }
 
-  async getAll(){
+  async getAll() {
     return this.studRepos.findAll();
   }
- 
+
   // async getAll() {
   //   const db = await Database.getDataBaseInstance();
   //   return await db.connection.all("SELECT * FROM students");
   // }
 
   async get(id) {
-    // let student;
-    // this.students.find((student) => student.id === id);
-    // this.students.forEach((e) => {
-    //   if (e.id == id) {
-    //     student = e;
-    //   }
-    // });
-    // return student;
-    const db = await Database.getDataBaseInstance();
-    return await db.connection.get("SELECT * FROM students WHERE id=:student_id",
-      {
-        ':student_id': id
-      }
-    );
-    // return this.students.find((student) => (student.id = id));
+    return this.studRepos.findById(id);
   }
 
   //   create(student) {
@@ -70,25 +56,25 @@ export default class StudentService {
   //     return newStudent;
   //   }
 
-  async create(student_data) {
-    // student_data.id = this.uuidGen.next().value;
-    // this.students.push(student_data);
-    // return student_data;
-    const {firstname, lastname, sexe, birth_day} = student_data;
-    const db = await Database.getDataBaseInstance();
-    const req = `INSERT INTO students (firstname, lastname, sexe, birth_day)
-                VALUES (':firstname',':lastname',':sexe',':birth_day');
-    `
+  // async create(student_data) {
+  //   // student_data.id = this.uuidGen.next().value;
+  //   // this.students.push(student_data);
+  //   // return student_data;
+  //   const { firstname, lastname, sexe, birth_day } = student_data;
+  //   const db = await Database.getDataBaseInstance();
+  //   const req = `INSERT INTO students (firstname, lastname, sexe, birth_day)
+  //               VALUES (':firstname',':lastname',':sexe',':birth_day');
+  //   `;
 
-    const {last_id} = await db.connection.run(req, {
-      ':firstname': firstname,
-      ':lastname': lastname,
-      ':sexe': sexe,
-      ':birth_day': birth_day
-    });
+  //   const { last_id } = await db.connection.run(req, {
+  //     ":firstname": firstname,
+  //     ":lastname": lastname,
+  //     ":sexe": sexe,
+  //     ":birth_day": birth_day,
+  //   });
 
-    return this.get(last_id);
-  }
+  //   return this.get(last_id);
+  // }
 
   //   update(id, student) {
   //     let updatedStudent;
@@ -110,17 +96,12 @@ export default class StudentService {
   //     return updatedStudent;
   //   }
 
-  async update (id,student_data) {
-    const {firstname, lastname, sexe, birth_day} = student_data;
-    const db = await Database.getDataBaseInstance();
-    const req = `UPDATE Students SET firstname = :firstname, lastname = :lastname, sexe = :sexe, birth_day = :birth_day WHERE id = :id`;
-    await db.connection.run(req, {
-      ':firstname': firstname,
-      ':lastname': lastname,
-      ':sexe': sexe,
-      ':birth_day': birth_day,
-      ':id': id
-    });
+  async create(student){
+    return this.studRepos.save(student);
+  }
+
+  async update(id, student_data) {
+    return this.studRepos.update(id, student_data);
   }
 
   //   delete(id) {
@@ -139,10 +120,6 @@ export default class StudentService {
   //   }
 
   async delete(id) {
-    const db = await Database.getDataBaseInstance();
-    const req = `DELETE FROM Students WHERE id = :id`;
-    await db.connection.run(req, {
-      ':id': id
-    });
+    return this.studRepos.delete(id);
   }
 }
