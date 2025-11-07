@@ -46,9 +46,9 @@ export default class Database{
         
 
         console.log('insertion des donne')
-        const dml_sql = await fs.readFile(path.join(BASEDIR,'dml.sql'), 'utf-8');
-        console.log(dml_sql);
-        await this.connection.exec(dml_sql);
+        //const dml_sql = await fs.readFile(path.join(BASEDIR,'dml.sql'), 'utf-8');
+        //console.log(dml_sql);
+        //await this.connection.exec(dml_sql);
     }
 
     async openDb (db_path) {
