@@ -1,0 +1,1 @@
+INSERT INTO students(firstname, lastname, sexe, birth_day) VALUES ('Abdoul','Jean','M','2005/05/14'),('Guema','chistian','M','2008/06/18'),('Koilo','Ablok','F','2005/04/12');
